@@ -16,13 +16,15 @@ const ModalOverlay = (props) => {
 const portalElement = document.getElementById("overlays");
 
 const Modal = (props) => {
-  <>
-    {ReactDOM.createPortal(<Backdrop />, portalElement)}
-    {ReactDOM.createPortal(
-      <ModalOverlay>{props.children}</ModalOverlay>,
-      portalElement
-    )}
-  </>;
+  return (
+    <>
+      {ReactDOM.createPortal(<Backdrop />, portalElement)}
+      {ReactDOM.createPortal(
+        <ModalOverlay>{props.children}</ModalOverlay>,
+        portalElement
+      )}
+    </>
+  );
 };
 
 export default Modal;
