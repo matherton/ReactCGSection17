@@ -28,10 +28,11 @@ const cartReducer = (state, action) => {
       };
       updatedItems = [...state.items];
       updatedItems[existingCartItemIndex] = updatedItem;
+    } else {
+      updatedItem = { ...action.item };
+      //concat gives us a new array where as push adds to existing array
+      updatedItems = state.items.concat(action.item);
     }
-
-    //concat gives us a new array where as push adds to existing array
-    const updatedItems = state.items.concat(action.item);
 
     return {
       items: updatedItems,
