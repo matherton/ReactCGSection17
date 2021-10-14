@@ -18,19 +18,16 @@ const cartReducer = (state, action) => {
 
     const existingCartItem = state.items[existingCartItemIndex];
 
-    let updatedItem;
     let updatedItems;
 
     if (existingCartItem) {
-      updatedItem = {
+      const updatedItem = {
         ...existingCartItem,
         amount: existingCartItem.amount + action.item.amount,
       };
       updatedItems = [...state.items];
       updatedItems[existingCartItemIndex] = updatedItem;
     } else {
-      updatedItem = { ...action.item };
-      //concat gives us a new array where as push adds to existing array
       updatedItems = state.items.concat(action.item);
     }
 
