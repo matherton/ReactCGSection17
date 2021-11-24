@@ -11,8 +11,11 @@ const AvailableMeals = () => {
       const response = await fetch(
         "https://react-http-4b88b-default-rtdb.europe-west1.firebasedatabase.app/meals.json"
       );
+
       const responseData = await response.json;
+
       const loadedMeals = [];
+
       for (const key in responseData) {
         loadedMeals.push({
           id: key,
@@ -21,11 +24,12 @@ const AvailableMeals = () => {
           price: responseData[key].price,
         });
       }
+      setMeals(loadedMeals);
     };
     fetchMeals();
   }, []);
 
-  const mealsList = MEALS.map((meal) => (
+  const mealsList = meals.map((meal) => (
     <MealItem
       key={meal.id}
       id={meal.id}
