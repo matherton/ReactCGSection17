@@ -6,13 +6,11 @@ import classes from "./AvailableMeals.module.css";
 
 const AvailableMeals = () => {
   useEffect(() => {
-    fetch();
+    fetch(
+      "https://react-http-4b88b-default-rtdb.europe-west1.firebasedatabase.app/meals.json"
+    );
   }, []);
 
-  const MEALS = fetch(
-    "https://react-http-4b88b-default-rtdb.europe-west1.firebasedatabase.app/meals"
-  );
-  console.log(MEALS);
   const mealsList = MEALS.map((meal) => (
     <MealItem
       key={meal.id}
