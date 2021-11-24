@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem.js";
 import classes from "./AvailableMeals.module.css";
 
 const AvailableMeals = () => {
+  const [meals, setMeals] = useState([]);
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch(
