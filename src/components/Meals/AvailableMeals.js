@@ -6,13 +6,14 @@ import classes from "./AvailableMeals.module.css";
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
+
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch(
         "https://react-http-4b88b-default-rtdb.europe-west1.firebasedatabase.app/meals.json"
       );
 
-      const responseData = await response.json;
+      const responseData = await response.json();
 
       const loadedMeals = [];
 
