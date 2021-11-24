@@ -11,6 +11,7 @@ const AvailableMeals = () => {
         "https://react-http-4b88b-default-rtdb.europe-west1.firebasedatabase.app/meals.json"
       );
     };
+    fetchMeals();
   }, []);
 
   const mealsList = MEALS.map((meal) => (
