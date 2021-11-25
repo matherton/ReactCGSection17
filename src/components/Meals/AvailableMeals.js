@@ -52,7 +52,7 @@ const AvailableMeals = () => {
 
   if (httpError) {
     return (
-      <section className={classes.mealsLoading}>
+      <section className={classes.mealsError}>
         <p>{httpError}</p>
       </section>
     );
