@@ -15,6 +15,10 @@ const AvailableMeals = () => {
         "https://react-http-4b88b-default-rtdb.europe-west1.firebasedatabase.app/meals"
       );
 
+      if (!response.ok) {
+        throw new Error("Something went wrong fetching the Meals data");
+      }
+
       const responseData = await response.json();
 
       const loadedMeals = [];
@@ -30,7 +34,12 @@ const AvailableMeals = () => {
       setMeals(loadedMeals);
       setIsLoading(false);
     };
-    fetchMeals();
+    try {
+      fetchMeals();
+    } catch (error) {
+      setIsLoading(false);
+      setHttpError(error.message);
+    }
   }, []);
 
   if (isLoading) {
