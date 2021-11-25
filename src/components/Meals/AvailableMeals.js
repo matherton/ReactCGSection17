@@ -7,11 +7,12 @@ import classes from "./AvailableMeals.module.css";
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState();
 
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch(
-        "https://react-http-4b88b-default-rtdb.europe-west1.firebasedatabase.app/meals.json"
+        "https://react-http-4b88b-default-rtdb.europe-west1.firebasedatabase.app/meals"
       );
 
       const responseData = await response.json();
