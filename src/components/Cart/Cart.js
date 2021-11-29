@@ -2,28 +2,40 @@ import { useContext, useState } from "react";
 
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
-import Checkout from "./Checkout";
 import classes from "./Cart.module.css";
-
 import CartContext from "../../store/cart-context";
+import Checkout from "./Checkout";
 
 const Cart = (props) => {
-  const [showCheckout, setShowCheckout] = useState(false);
+  const [isCheckout, setIsCheckout] = useState(false);
   const cartCtx = useContext(CartContext);
 
-  const totalAmount = `£${cartCtx.totalAmount.toFixed(2)}`;
-  const hasItem = cartCtx.items.length > 0;
+  const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
+  const hasItems = cartCtx.items.length > 0;
 
   const cartItemRemoveHandler = (id) => {
     cartCtx.removeItem(id);
   };
 
   const cartItemAddHandler = (item) => {
-    cartCtx.addItem({ ...item, amount: 1 });
+    cartCtx.addItem(item);
   };
 
   const orderHandler = () => {
-    setShowCheckout(true);
+    setIsCheckout(true);
+  };
+
+  const submitOrderHandler = (userData) => {
+    fetch(
+      "https://react-http-4b88b-default-rtdb.europe-west1.firebasedatabase.app/orders.json",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          user: userData,
+          orderedItems: cartCtx.items,
+        }),
+      }
+    );
   };
 
   const cartItems = (
@@ -46,7 +58,7 @@ const Cart = (props) => {
       <button className={classes["button--alt"]} onClick={props.onClose}>
         Close
       </button>
-      {hasItem && (
+      {hasItems && (
         <button className={classes.button} onClick={orderHandler}>
           Order
         </button>
@@ -55,14 +67,16 @@ const Cart = (props) => {
   );
 
   return (
-    <Modal onClose={props.onClose} alt="paul">
+    <Modal onClose={props.onClose}>
       {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {showCheckout && <Checkout onCancel={props.onClose} />}
-      {!showCheckout && modalActions}
+      {isCheckout && (
+        <Checkout onConfirm={submitOrderHandler} onCancel={props.onClose} />
+      )}
+      {!isCheckout && modalActions}
     </Modal>
   );
 };
