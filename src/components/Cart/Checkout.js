@@ -1,11 +1,17 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import classes from "./Checkout.module.css";
 
-const isEpmty = (value) => value.trim() === "";
-const isPostal = (value) => value.trim().length !== 5;
+const isEmpty = (value) => value.trim() === "";
+const isFiveChars = (value) => value.trim().length === 5;
 
 const Checkout = (props) => {
+  const [formInputsValidity, setFormInputsValidity] = useState({
+    name: true,
+    street: true,
+    postal: true,
+    city: true,
+  });
   const nameInputRef = useRef();
   const streetInputRef = useRef();
   const postalInputRef = useRef();
@@ -17,6 +23,23 @@ const Checkout = (props) => {
     const enteredStreet = streetInputRef.current.value;
     const enteredPostal = postalInputRef.current.value;
     const enteredCity = cityInputRef.current.value;
+
+    const enteredNameIsValid = !isEmpty(enteredName);
+    const enteredStreetIsValid = !isEmpty(enteredStreet);
+    const enteredCityIsValid = !isEmpty(enteredCity);
+    const enteredPostalIsValid = !isFiveChars(enteredPostal);
+
+    const isFormValid =
+      enteredNameIsValid &&
+      enteredStreetIsValid &&
+      enteredCityIsValid &&
+      enteredPostalIsValid;
+
+    if (!isFormValid) {
+      throw new Error(
+        "Delivery details you have provide are invalid! Please re-ebnter delivery details"
+      );
+    }
   };
 
   return (
