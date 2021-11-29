@@ -2,6 +2,9 @@ import { useRef } from "react";
 
 import classes from "./Checkout.module.css";
 
+const isEpmty = (value) => value.trim() === "";
+const isPostal = (value) => value.trim().length !== 5;
+
 const Checkout = (props) => {
   const nameInputRef = useRef();
   const streetInputRef = useRef();
