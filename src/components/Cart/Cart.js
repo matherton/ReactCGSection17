@@ -11,8 +11,11 @@ const Cart = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
   const cartCtx = useContext(CartContext);
+  console.log("cartCtx", cartCtx);
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
+  console.log("totalAmount", totalAmount);
+
   const hasItems = cartCtx.items.length > 0;
 
   const cartItemRemoveHandler = (id) => {
@@ -41,6 +44,7 @@ const Cart = (props) => {
     );
     setIsSubmitting(false);
     setDidSubmit(true);
+    cartCtx.clearCart();
   };
 
   const cartItems = (
